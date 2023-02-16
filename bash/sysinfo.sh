@@ -1,22 +1,20 @@
 #!/bin/bash
-# sysinfo.sh - a script to display information about a computer
-# Name of the host
-FQDN=$(hostname)
-# The operating system name and version, identifying the Linux distro in use from a command such as hostnamectl
-OS_NAME=$(hostnamectl)
-# Any IP addresses the machine has that are not on the 127 network
-IP_ADDRESSES=$(hostname -I | grep -v "127.")
-# The amount of space available in only the root filesystem, displayed as a human-friendly number
-ROOT_SPACE=$(df -h /dev/sda3)
 
-# Output all of the collected information
+# sysinfo.sh 
 
-echo "FQDN: $FQDN"
+hostname=$(hostname)
 
-echo "Operating System: $OS_NAME"
+Operatingsystem=$(hostnamectl)
 
-echo "IP Addresses: $IP_ADDRESSES"
+ipaddress=$(hostname -I )
 
-echo "Root Filesystem Space: $ROOT_SPACE"
+rootfilesystem=$(df -h | grep /dev/sda3 )
 
-exit 0
+cat <<EOF
+Report for $hostname
+######################################
+Operating System And version :$Operatingsystem
+Ip Address :$ipaddress
+Root FIlesystem Free Status:$rootfilesystem
+######################################
+EOF
